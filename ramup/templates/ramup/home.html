@@ -1,0 +1,12 @@
+{% extends "ramup/base.html" %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="bg-image" 
+     style="background-image: url('{% static 'ramup/images/macbook.jpg' %}');
+            background-size: cover;
+            height: 100vh">
+</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+env_meter
+media/documents
+*.pyc
+core/env_key.py
+__pycache__

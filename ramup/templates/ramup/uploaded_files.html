@@ -1,0 +1,21 @@
+<div>
+    <ul class="list-group">
+        <div class="row">
+        {% for file in files %}
+            <div class="col-11">
+                <a class="list-group-item">
+                    {{file.description}}
+                    {{file.document}}
+                    {{file.uploaded_at|date}}
+                    {{file.uploaded_at|time}}
+                </a>
+            </div>
+            <div class="col-1">
+                <a type="button" href="{% url 'upload_file_delete' file.pk %}"
+                    class="btn btn-danger">Delete</a>
+            </div>
+
+            {% endfor %}
+        </div>
+    </ul>
+</div>
