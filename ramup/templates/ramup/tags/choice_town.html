@@ -1,0 +1,6 @@
+<select class="form-select" aria-label="">
+  <option selected>Выбрать место</option>
+  {% for town in towns %}
+  <option value="{{town}}">{{ town }}</option>
+  {% endfor %}
+</select>

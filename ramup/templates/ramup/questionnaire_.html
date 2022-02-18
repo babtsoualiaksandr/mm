@@ -1,0 +1,49 @@
+{% extends "ramup/base.html" %}
+{% load static %}
+{% load ramup_tags %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <ul class="list-group list-group-flush list">
+        {% for question in questions %}
+        <li class="list-group-item vh-100 pt-5" id="{{question.number}}">
+            <p class="pt-5">{{question.сontent_question}}</p>
+            <p>{{question.prompt}}</p>
+            <p>{% choice_station city=2  %}</p>
+            <ul class="nav justify-content-center">
+                {{question.answers}}
+                {% for each in question.answers.all %}
+                <li class="nav-item">
+                    <button type="button" next="{{each.jump}}"
+                        class="btn btn-outline-secondary btn-next">{{ each.сontent_answer }} {{ each.action }}</button>
+                </li>
+                {% endfor %}
+                {{question.answers_json}}
+                {% for each in question.answers_json.answers %}
+                <li class="nav-item">
+                {% if each.variant == 'choice_town' %}
+                {% choice_town %}
+                {% endif %}
+                    <button type="button" jump="{{each.next}}"
+                        class="btn btn-outline-secondary btn-next"> Next {{ each.variant }} {{ each.next }}</button>
+               
+                </li>
+                {% endfor %}
+                <button type="button" jump="{{question.answers_json.prev}}"
+                class="btn btn-outline-secondary btn-next"> Prev {{ question.answers_json.prev}}</button>
+                
+                {% if question.number == "17" %}
+                <button type="button" next="0" class="btn btn-outline-secondary btn-next">Back</button>
+
+                {% endif %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script src="{% static 'ramup/js/questionnaire.js' %}"></script>
+{% endblock %}

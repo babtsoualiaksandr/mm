@@ -3,13 +3,13 @@
 {% load static %}
 
 {% block content %}
-<div class="d-flex align-items-center justify-content-center">
+<div class="mx-auto" style="width: 350px;">
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-primary" type="submit">Upload</button>
   </form>
-  <p><a href="{% url 'home' %}">Home</a></p>
+  <a href="{% url 'home' %}">Home</a>
 </div>
   {% list_files %} 
 {% endblock %}

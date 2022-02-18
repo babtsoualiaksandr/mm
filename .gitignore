@@ -3,3 +3,8 @@ media/documents
 *.pyc
 core/env_key.py
 __pycache__
+nginx/modules
+nginx/fastcgi_params
+nginx/conf.d/default.conf
+nginx/uwsgi_params
+nginx/scgi_params

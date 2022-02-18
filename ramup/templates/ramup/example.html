@@ -1,0 +1,81 @@
+{% extends "ramup/base.html" %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<div class="card">
+     <img class="card-img-top" src="holder.js/100x180/?text=Image cap" alt="Card image cap">
+     <div class="card-body">
+          <h4 class="card-title">Title</h4>
+          <p class="card-text">Text</p>
+     </div>
+     <ul class="list-group list-group-flush list" id="div_worker">
+          {% for step in flow %}
+          <li class="list-group-item vh-100" id="{{step.id}}" next="{{step.idnext}}">
+               
+               <bottom class="btn btn-primary btn-next" next="{{step.idnext}}">
+                    {{step.idnext}}
+               </bottom>
+               <p>{{step.content}}</p>
+
+          </li>
+          {% endfor %}
+     </ul>
+</div>
+
+
+
+<table>
+     <tr class="record">
+          <td>2022-02-11 17:25:02</td>
+          <td title="out-375333164612-301-20220211-172504-1644589502.18766.mp3"><a href="#"
+                    onclick="javascript:cdr_play(13,'1644589502.18766'); return false;"><img
+                         src="assets/cdr/images/cdr_sound.png" alt="Call recording"></a>
+               <a href="/admin/config.php?display=cdr&amp;action=download_audio&amp;cdr_file=1644589502.18766"><img
+                         src="assets/cdr/images/cdr_download.png" alt="Call recording"></a></td>
+          <td title="Идентификатор: 1644589502.18766"><a
+                    href="/admin/config.php?display=cdr&amp;action=cel_show&amp;uid=1644589502.18766">1644589502.18766</a>
+          </td>
+          <td title="Канал: SIP/301-0000494e">"301" &lt;301&gt;</td>
+          <td title="Канал: SIP/10017-0000494f">&lt;301&gt;</td>
+          <td title="Входящий номер: "></td>
+          <td title="Приложение: Dial(SIP/10017/80333164612,300,TM(outdial)b(func-apply-sipheaders^s^1))">Dial</td>
+          <td title="Канал: SIP/10017-0000494f Контекст: from-internal">375333164612</td>
+          <td title="AMA-флаг: DEFAULT">NO ANSWER</td>
+          <td title="Время разговора: 00:40">00:42</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+     </tr>
+     <tr class="record">
+          <td>2022-02-11 17:25:02</td>
+          <td title="out-375333164612-301-20220211-172504-1644589502.18766.mp3"><a href="#"
+                    onclick="javascript:cdr_play(13,'1644589502.18766'); return false;"><img
+                         src="assets/cdr/images/cdr_sound.png" alt="Call recording"></a>
+               <a href="/admin/config.php?display=cdr&amp;action=download_audio&amp;cdr_file=1644589502.18766"><img
+                         src="assets/cdr/images/cdr_download.png" alt="Call recording"></a></td>
+          <td title="Идентификатор: 1644589502.18766"><a
+                    href="/admin/config.php?display=cdr&amp;action=cel_show&amp;uid=1644589502.18766">1644589502.18766</a>
+          </td>
+          <td title="Канал: SIP/301-0000494e">"301" &lt;301&gt;</td>
+          <td title="Канал: SIP/10017-0000494f">&lt;301&gt;</td>
+          <td title="Входящий номер: "></td>
+          <td title="Приложение: Dial(SIP/10017/80333164612,300,TM(outdial)b(func-apply-sipheaders^s^1))">Dial</td>
+          <td title="Канал: SIP/10017-0000494f Контекст: from-internal">375333164612</td>
+          <td title="AMA-флаг: DEFAULT">NO ANSWER</td>
+          <td title="Время разговора: 00:40">00:42</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+     </tr>
+</table>
+
+
+
+{{ser_towns}}
+<script src="{% static 'ramup/js/example.js' %}"></script>
+{% endblock %}

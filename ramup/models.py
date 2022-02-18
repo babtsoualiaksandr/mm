@@ -1,7 +1,10 @@
+from email.policy import default
 import os
 from django.db import models
+from django.forms import DecimalField
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from core import settings
 from django.core.validators import RegexValidator
@@ -43,7 +46,21 @@ class Telephone(models.Model):
 
     def __str__(self) -> str:
         return f'{self.phone_number} {self.town} {self.gender} {self.age}'
-    
+
+
+class RadioStation(models.Model):
+    name = models.CharField(max_length=50, blank=True)
+    name_rus = models.CharField(max_length=50, blank=True)
+    def __str__(self):
+        return f'{self.id} { self.name} / {self.name_rus} ' 
+
+class RadioStationsByCity(models.Model):
+    radioStation = models.ForeignKey(RadioStation, on_delete=models.CASCADE, default=1)
+    name_city = models.ForeignKey(Town, related_name='RadioStationsByCites', verbose_name=_("Город"), on_delete=models.CASCADE)
+    frequency = models.DecimalField(verbose_name="Частота", max_digits=5, decimal_places=1)
+    def __str__(self):
+        return f'{self.id}. {self.name_city} {self.radioStation} {self.frequency} '
+
 
 class Respondent(models.Model):
     telephone = models.ForeignKey(Telephone, related_name='Respondents', on_delete=models.CASCADE, verbose_name="Телефон")
@@ -54,7 +71,7 @@ class Respondent(models.Model):
 
 class Answer(models.Model):
     сontent_answer = models.TextField(verbose_name="Содержание ответа")
-    prompt = models.TextField(verbose_name="Подсказка")
+    prompt = models.TextField(verbose_name="Подсказка", blank=True)
     action = models.CharField(max_length=50, blank=True, verbose_name="Дейсвие")
     jump = models.CharField(max_length=5, blank=True, verbose_name="Номер следующего вопроса или пусто ()")
 
@@ -66,11 +83,14 @@ class Answer(models.Model):
 class Question(models.Model):
     number = models.CharField(max_length=5, blank=True, verbose_name="Номер вопроса (1; 9.1)")
     сontent_question = models.TextField(verbose_name="Содержание вопроса")
-    prompt = models.TextField(verbose_name="Подсказка")
+    prompt = models.TextField(verbose_name="Подсказка", blank=True)
     answers = models.ManyToManyField(Answer,related_name='questions', blank=True, verbose_name='Варианты ответов')
- 
+    answers_json = models.JSONField(verbose_name='answers', default={"answer":"first"} )
     def __str__(self) -> str:
-        return f'{self.number}  {self.сontent_question}'
+        return f'{self.number}  {self.сontent_question} {self.answers_json}'
+
+from django.core import serializers
+
 
 
 
