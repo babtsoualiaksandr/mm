@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import DocumentDeleteView, home, upload_file, example, questionnaire, station_by_town
+from .views import DocumentDeleteView, home, upload_file, example, questionnaire, station_by_town, get_cites
 
 urlpatterns = [
     path('', home, name='home'),    
@@ -9,6 +9,7 @@ urlpatterns = [
     path('questionnaire/', questionnaire, name='questionnaire'),
     path('example/', example, name='example'),
     path('station_by_town/<pk>/', station_by_town),
+    path('cites/', get_cites),
 
        
 ]

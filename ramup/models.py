@@ -22,6 +22,8 @@ class Document(models.Model):
 
 class Town(models.Model):
     name = models.CharField(max_length=255, blank=True, verbose_name="Название города" )
+    answer = models.CharField(max_length=255, blank=True, verbose_name="Вариан ответа" )
+    next_question = models.CharField(max_length=10, blank=True, verbose_name="Следующий вопрос" )
     def __str__(self) -> str:
         return self.name
 

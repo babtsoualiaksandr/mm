@@ -1,0 +1,277 @@
+{% extends "ramup/base.html" %}
+{% load static %}
+{% load ramup_tags %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <ul class="list-group list-group-flush list">
+        <li class="list-group-item vh-100 pt-5" id="question_0">  
+            <p class="pt-5">Здравствуйте! Меня зовут …, я представляю компанию «МедиаИзмеритель». Мы изучаем
+                общественное мнение о белорусском радио. Можно ли задать Вам несколько вопросов на эту тему? Опрос
+                займет около 3 минут.</p>
+            <a name="" id="" class="btn btn-success" href="#question_1" role="button">Cогласен</a>
+            <a name="" id="" class="btn btn-warning" href="#end" role="button">Не Cогласен</a>
+        </li>
+        <li class="list-group-item vh-100 pt-5" id="question_1">
+            <p class="pt-5">1. Спасибо! Как я могу к Вам обращаться?</p>
+            <div class="mb-3">
+                <label for="" class="form-label"></label>
+                <input type="text" class="form-control form-control-sm|lg" name="" id="input_q_1"
+                    aria-describedby="helpId" placeholder="">
+                <small id="helpId" class="form-text text-muted">Запишите со слов респондента</small>
+            </div>
+            <a name="" id="" class="btn btn-success" href="#question_2" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+        {#City #}
+        <li class="list-group-item vh-100 pt-5" id="question_2">
+            <p class="pt-5">2. В каком населенном пункте Вы постоянно проживаете?
+            </p>
+            <small id="helpId" class="form-text text-muted">Варианты ответа не зачитывать</small>
+            <select id="choiceTown_q_2" class="form-select" aria-label="">
+                <option selected>Выбрать город</option>
+                {% for town in towns %}
+                <option value="{{town.pk}}">{{ town }}</option>
+                {% endfor %}
+            </select>
+            <div class="mb-3">
+                <label for="" class="form-label"></label>
+                <input type="text" class="form-control form-control" name="" id="" aria-describedby="helpId_q_2"
+                    placeholder="">
+                <small id="helpId_q_22" class="form-text text-muted">Другой населенный пункт – ЗАКОНЧИТЬ
+                    ИНТЕРВЬЮ</small>
+            </div>
+            <a name="" id="btn_question_2" class="btn btn-success disabled" href="#question_3" role="button">Далее</a>
+            <a name="" id="" class="btn btn-warning" href="#end" role="button">Отказ от ответа </a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+        <li class="list-group-item vh-100 pt-5" id="question_3">
+            <p class="pt-5">3. Сколько вам полных лет?
+            </p>
+            <small class="form-text text-muted">Варианты ответа не зачитывать</small>
+            <div class="mb-3">
+                <label for="" class="form-label"></label>
+                <input type="number" class="form-control" name="" id="question_3_age" aria-describedby="helpId_q_3"
+                    placeholder="">
+                <small id="helpId_q_3" class="form-text text-muted">ОГРАНИЧЕНИЯ: 2 СИМВОЛА, НЕ МЕНЬШЕ 15 И НЕ БОЛЬШЕ 64,
+                    В
+                    ПРОТИВНОМ СЛУЧАЕ – КОНЕЦ ИНТЕРВЬЮ </small>
+            </div>
+            <a name="" id="btn_question_3_age" class="btn btn-success" href="#question_4" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+        <li class="list-group-item vh-100 pt-5" id="question_4">
+            <p class="pt-5">4. Пол респондента:
+            </p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="genderRadios" id="men" value="M">
+                <label class="form-check-label" for="men">
+                    Мужской
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="genderRadios" id="women" value="Ж">
+                <label class="form-check-label" for="women">
+                    Женский
+                </label>
+            </div>
+            <a name="" id="" class="btn btn-success" href="#question_5" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+        <li class="list-group-item vh-100 pt-5" id="question_5">
+            <p class="pt-5">5. Скажите, пожалуйста, Вы слушали радио хотя бы один раз за последние 7 дней?
+            </p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_5" id="q_5_yes" value="Yes">
+                <label class="form-check-label" for="q_5_yes">
+                    Да
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_5" id="q_5_no" value="No">
+                <label class="form-check-label" for="q_5_no">
+                    Нет
+                </label>
+            </div>
+            <a name="" id="btn_question_5" class="btn btn-success disabled" href="#question_6" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+
+        <li class="list-group-item vh-100 pt-5" id="question_6">
+            <p class="pt-5">6. Скажите, пожалуйста, Вы слушали радио хотя бы один раз за последние 30 дней?
+            </p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_6" id="q_6_yes" value="Yes">
+                <label class="form-check-label" for="q_6_yes">
+                    Да
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_6" id="q_6_No" value="No">
+                <label class="form-check-label" for="q_6_No">
+                    Нет
+                </label>
+            </div>
+            <a name="" id="btn_question_6" class="btn btn-success disabled" href="#question_13" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+        <li class="list-group-item vh-100 pt-5" id="question_7">
+            <p class="pt-5">7. Сейчас я зачитаю список белорусских радиостанций, которые звучат в Вашем городе.
+                Назовите, пожалуйста, те, которые Вы слушали за последние 7 дней.
+            </p>
+            <div id="q_7">
+
+            </div>
+            <a name="" id="btn_question_7" class="btn btn-success disabled" href="#question_8" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+        <li class="list-group-item vh-100 pt-5" id="question_8">
+            <p class="pt-5"> 8. Скажите, пожалуйста, Вы слушали радио вчера?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_8" id="q_8_yes" value="Yes">
+                <label class="form-check-label" for="q_8_yes">
+                    Слушал
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_8" id="q_8_No" value="No">
+                <label class="form-check-label" for="q_8_No">
+                    Не слушал
+                </label>
+            </div>
+
+            <a name="" id="btn_question_8" class="btn btn-success disabled" href="#question_9" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+        <li class="list-group-item vh-100 pt-5" id="question_9">
+            <p class="pt-5"> 9. Давайте вспомним Ваш вчерашний день подробнее. Скажите, пожалуйста, вы слушали радио
+                вчера утром в промежутке времени с 6 утра до 12 дня?</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_9" id="q_9_yes" value="Yes">
+                <label class="form-check-label" for="q_9_yes">
+                    Слушал
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="radios_q_9" id="q_9_No" value="No">
+                <label class="form-check-label" for="q_9_No">
+                    Не слушал
+                </label>
+            </div>
+            <a name="" id="btn_question_9" class="btn btn-success disabled" href="#question" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+        <li class="list-group-item vh-100 pt-5" id="question_9_1">
+            <p class="pt-5"> 9.1. Скажите, пожалуйста, в каком именно месте вы слушали радио вчера утром (в промежутке
+                времени с 6 до 12)?</p>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_1" type="checkbox" id="radios_q_9_1_1" value="1">
+                <label class="form-check-label" for="radios_q_9_1">1. Дома / на даче</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_1" type="checkbox" id="radios_q_9_1_2" value="2">
+                <label class="form-check-label" for="radios_q_9_1_2">2. На работе / учебе</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_1" type="checkbox" id="radios_q_9_1_3" value="3">
+                <label class="form-check-label" for="radios_q_9_1_3">3. В машине / гараже</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_1" type="checkbox" id="radios_q_9_1_4" value="4">
+                <label class="form-check-label" for="radios_q_9_1_4">4. В общественном транспорте / заведении / такси
+                </label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_1" type="checkbox" id="radios_q_9_1_5" value="5">
+                <label class="form-check-label" for="radios_q_9_1_5">5. Вне помещения / на улице</label>
+            </div>
+            <div class="mb-3">
+                <label for="input_q_9_1" class="form-label">6. В другом месте</label>
+                <input type="text" class="form-control form-control" name="" id="input_q_9_1" aria-describedby="helpId"
+                    placeholder="">
+                <small id="input_q_9_1" class="form-text text-muted">(уточните и запишите, где именно)</small>
+            </div>
+
+            <a name="" id="btn_question_9_1" class="btn btn-success disabled" href="#question_9_2" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+        <li class="list-group-item vh-100 pt-5" id="question_9_2">
+            <p class="pt-5">9.2. С помощью каких устройств Вы слушали радио вчера утром (в промежутке времени с 6 до 12)? ПОКАЗАТЬ ПО КАЖДОМУ МЕСТУ СЛУШАНИЯ, ОТМЕЧЕННОМУ В ВОПРОСЕ 9.1</p>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_2" type="checkbox" id="radios_q_9_2_1" value="1">
+                <label class="form-check-label" for="radios_q_9_2">1. Дома / на даче</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_2" type="checkbox" id="radios_q_9_2_2" value="2">
+                <label class="form-check-label" for="radios_q_9_2_2">2. На работе / учебе</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_2" type="checkbox" id="radios_q_9_2_3" value="3">
+                <label class="form-check-label" for="radios_q_9_2_3">3. В машине / гараже</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_2" type="checkbox" id="radios_q_9_2_4" value="4">
+                <label class="form-check-label" for="radios_q_9_2_4">4. В общественном транспорте / заведении / такси
+                </label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" name="radios_q_9_2" type="checkbox" id="radios_q_9_2_5" value="5">
+                <label class="form-check-label" for="radios_q_9_2_5">5. Вне помещения / на улице</label>
+            </div>
+            <div class="mb-3">
+                <label for="input_q_9_2" class="form-label">6. В другом месте</label>
+                <input type="text" class="form-control form-control" name="" id="input_q_9_2" aria-describedby="helpId"
+                    placeholder="">
+                <small id="input_q_9_2" class="form-text text-muted">(уточните и запишите, где именно)</small>
+            </div>
+
+            <a name="" id="btn_question_9_2" class="btn btn-success disabled" href="#question" role="button">Далее</a>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+
+        <li class="list-group-item vh-100 pt-5" id="question_13">
+            <p class="pt-5">question_13
+            </p>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+        <li class="list-group-item vh-100 pt-5" id="end">
+            <p class="pt-5">END
+            </p>
+            <a class="btn btn-info" href="javascript:history.back()"><i class="bi bi-backspace"></i></a>
+        </li>
+
+
+    </ul>
+</div>
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="polite" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Info</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+        </div>
+        <div class="toast-body">
+            <p id="content_liveToast"></p>
+            <p id="content_liveToast_City"></p>
+            <p id="content_liveToast_Age"></p>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="{% static 'ramup/js/questionnaire.js' %}"></script>
+{% endblock %}

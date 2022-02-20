@@ -110,4 +110,12 @@ def station_by_town(request, pk):
     print(res.data)
 
     return JsonResponse(res.data,safe = False)
+
+def get_cites(request):
+    cites = Town.objects.all()
+    res = TownSerializer(cites, many=True)
+    print(res.data)
+    return JsonResponse(res.data,safe = False)
+
+
     
