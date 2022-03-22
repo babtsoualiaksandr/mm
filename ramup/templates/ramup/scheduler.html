@@ -1,0 +1,23 @@
+{% extends "ramup/base.html" %}
+{% load static %}
+{% load ramup_tags %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{{ cites|json_script:"cites" }}
+{{ genders|json_script:"genders" }}
+{{ ages|json_script:"ages" }}
+{{ operators|json_script:"operators" }}
+{{ telephones|json_script:"telephones" }}
+{{ sheduler|json_script:"sheduler" }}
+{%csrf_token%}
+
+<main id="main" class="row">
+
+</main>
+
+{{telephones}} <br>
+{{sheduler}}
+<script type="text/javascript" src="{% static 'ramup/js/scheduler.js' %}"></script>
+{% endblock %}

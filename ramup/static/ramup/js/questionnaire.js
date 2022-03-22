@@ -304,7 +304,7 @@ const questions = [{
     },
     {
         number: '10',
-        next: '10_1',
+        next: '11',
         handler: null,
         content: "10. Скажите, пожалуйста, вы слушали радио вчера ДНЁМ в промежутке времени с 12 до 18?",
         hint: null,
@@ -427,7 +427,7 @@ const questions = [{
         hint: null,
         answers: [{
                 answer: 'Не слушал',
-                next_question: '11'
+                next_question: '12'
             },
             {
                 answer: 'Слушал',
@@ -538,13 +538,13 @@ const questions = [{
     },
     {
         number: '12',
-        next: '12_1',
+        next: '13',
         handler: null,
         content: "12. Скажите, пожалуйста, вы слушали радио вчера НОЧЬЮ в промежутке времени с 24 до 06?",
         hint: null,
         answers: [{
                 answer: 'Не слушал',
-                next_question: '11'
+                next_question: '13'
             },
             {
                 answer: 'Слушал',
@@ -944,6 +944,15 @@ function ready() {
     const main_card = document.getElementById('main_card');
     const main_form = document.createElement('form');
     main_form.setAttribute("name", "form_questionnaire")
+    main_form.setAttribute("action",`${baseUrl}/ramup/questionnaire/`);
+    main_form.setAttribute("method","post"); 
+    const csrfmiddlewaretoken = document.createElement("input");
+    csrfmiddlewaretoken.setAttribute("name", "csrfmiddlewaretoken");
+    csrfmiddlewaretoken.setAttribute("accept-charset", "UTF-8");
+    csrfmiddlewaretoken.value=document.querySelector('[name=csrfmiddlewaretoken]').value;
+    csrfmiddlewaretoken.setAttribute("type", "hidden");
+    main_form.appendChild(csrfmiddlewaretoken);
+
     const ul = document.createElement('ul');
     ul.classList.add("list-group", "ist-group-flush", "list");
 
@@ -1219,7 +1228,6 @@ function ready() {
             });
             li_2.addEventListener("input", (event => {
                 const question_btn_next = document.getElementById(`btn_succes_${numberQuestion}_2`)
-                console.log(question_btn_next);
                 const list_ = document.getElementsByName(`checkbox_${numberQuestion}_2`)
                 const selected_ = Array.prototype.slice.call(list_).filter(ch => ch.checked == true);
                 console.log(selected_);
@@ -1285,10 +1293,15 @@ function ready() {
     createQuestion9_12('12')
 
 
-    const btn_submit = document.getElementById("btn_succes_17");    
+    const btn_ = document.getElementById("btn_succes_17");
+    const li = document.getElementById("17");
+    const btn_submit = document.createElement("button");
+    btn_submit.tagName="button"  
     btn_submit.textContent = "Закончить и сохранить";
     btn_submit.classList.remove("disabled");
-    btn_submit.setAttribute("href", "#0")
+    btn_submit.setAttribute("type", "submit");
+    btn_submit.setAttribute("value", "submit");
+    btn_submit.classList.add("btn", "btn-success")
     btn_submit.addEventListener('click', () => {
         const form = document.forms.form_questionnaire
         const formData = new FormData(form);
@@ -1297,6 +1310,7 @@ function ready() {
             console.log(value, key);
         });       
     });
+    li.replaceChild(btn_submit, btn_)
 
     const btn_not_save = document.getElementById("btn_succes_18");    
     btn_not_save.textContent = "Закончить";

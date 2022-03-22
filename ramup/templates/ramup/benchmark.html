@@ -1,0 +1,94 @@
+{% extends "ramup/base.html" %}
+{% load static %}
+{% load ramup_tags %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-striped col">
+            <thead>
+                <tr>
+                    <th scope="col">Город</th>
+                    <th scope="col">Пол</th>
+                    <th scope="col">Показатель</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for  city_gender in city_genders %}
+                <tr>
+                    <td>
+                        {{city_gender.city }}
+                    </td>
+                    <td>
+                        {% if city_gender.gender == 0 %} M
+                        {% else %} Ж
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{city_gender.population}}%
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table table-striped col">
+            <thead>
+                <tr>
+                    <th scope="col">Возраст</th>
+                    <th scope="col">Пол</th>
+                    <th scope="col">Показатель</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for  age_gender in age_genders %}
+                <tr>
+                    <td>
+                        {{age_gender.age }}
+                    </td>
+                    <td>
+                        {% if age_gender.gender == 0 %} M
+                        {% else %} Ж
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{age_gender.population}}%
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped col">
+            <thead>
+                <tr>
+                    <th scope="col">Город</th>
+                    <th scope="col">Возраст</th>
+                    <th scope="col">Показатель</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for  city_age in city_ages %}
+                <tr>
+                    <td>
+                        {{city_age.city }}
+                    </td>
+                    <td>
+                        {{city_age.age }}
+                    </td>
+                    <td>
+                        {{city_age.population}}%
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

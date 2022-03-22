@@ -19,13 +19,14 @@ from django.urls import include, path
 
 urlpatterns = [
     path('ramup/', include('ramup.urls')),
-    path('admin/', admin.site.urls), 
+    path('admin/', admin.site.urls, name='admin'), 
     path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns+= [
+    import debug_toolbar
+    urlpatterns = [
         path('__debug__/', include('debug_toolbar.urls')),
-    ]
+    ] + urlpatterns
 
 print(urlpatterns)
