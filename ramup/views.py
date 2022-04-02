@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.serializers import serialize
 from django.http.response import JsonResponse
 
-from .serializers import RadioStationsByCitySerializer, TownSerializer
+from .serializers import CurrentUserSerializer, RadioStationSerializer, RadioStationsByCitySerializer, TownSerializer
 
 
 from .forms import DocumentForm, SchedulerRequest
@@ -203,3 +203,26 @@ def benchmark(request):
                    'age_genders': age_genders,
                    'city_genders': city_genders,
                    })
+
+
+from .utils import quota_by_day_of_now, get_number_telephone
+
+
+
+def operator_work(request):
+
+    return render(request, 'ramup/operator_work.html',
+                  {'title':'Operator work',
+                  'radio_station_by_City': RadioStationsByCitySerializer(RadioStationsByCity.objects.all(), many=True).data,
+                   'quota_by_day_of_now': quota_by_day_of_now(),
+                   'number_telephone': get_number_telephone(),
+                   'user': CurrentUserSerializer(request.user).data,
+                   'cites': TownSerializer(Town.objects.all(), many=True).data
+                   })
+
+
+def get_phone_number(request):
+
+    return JsonResponse(get_number_telephone(), safe=False)
+
+

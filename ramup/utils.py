@@ -1,7 +1,10 @@
-from ramup.models import BenchmarkCityGenderAge
+from ramup.models import BenchmarkCityGenderAge, Telephone
 import calendar
 from datetime import datetime
 import math
+from django.core.serializers.json import DjangoJSONEncoder
+
+from ramup.serializers import TelephoneSerializer
 
 
 def quota_by_day_of_week(month_date='', monthly_quota=3750):
@@ -40,3 +43,17 @@ def quota_by_day_of_now(now_date=''):
         quota_now[(benchmark.city.name)][benchmark.age.group]['M'] = q * float(benchmark.population_M_rate)
         quota_now[(benchmark.city.name)][benchmark.age.group]['F'] = q * float(benchmark.population_F_rate)
     return quota_now
+
+
+import random
+from django.forms.models import model_to_dict
+import json
+from django.http import JsonResponse
+
+def get_number_telephone(number_telephon=None):
+    number_telephon = Telephone.objects.order_by('?').first()
+    res = TelephoneSerializer(
+        number_telephon, many=False)
+    print(json.dumps(res.data, ensure_ascii=False))
+
+    return res.data

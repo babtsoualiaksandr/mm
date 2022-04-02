@@ -1,0 +1,36 @@
+{% extends "ramup/base.html" %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+{{ quota_by_day_of_now|json_script:"quotaByDayOfNow" }}
+{{ number_telephone|json_script:"numberTelephone" }}
+{{ radio_station_by_City|json_script:"radioStationByCity" }}
+{{ user|json_script:"user" }}
+{{ cites|json_script:"cites" }}
+{% csrf_token %}
+
+<div class="card" id='main_card'> 
+
+</div>
+
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="polite" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Info</strong>
+            <small></small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+        </div>
+        <div class="toast-body">
+            <span id="content_liveToast"></span>
+            <span id="content_liveToast_City"></span>
+            <span id="content_liveToast_Age"></span>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{% static 'ramup/js/operator_work.js' %}"></script>
+
+{% endblock %} 
