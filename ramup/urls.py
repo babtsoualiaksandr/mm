@@ -7,6 +7,7 @@ urlpatterns = [
     path('upload_file/', upload_file, name='upload_file'), 
     path('upload_file/<pk>/delete/', DocumentDeleteView.as_view(), name='upload_file_delete'),
     path('questionnaire/', operator_work, name='questionnaire'),
+    path('questionnaire1/', questionnaire, name='questionnaire'),
     path('example/', example, name='example'),
     path('station_by_town/<pk>/', station_by_town),
     path('cites/', get_cites),

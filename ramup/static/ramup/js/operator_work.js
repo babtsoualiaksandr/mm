@@ -209,23 +209,23 @@ ready = () => {
             hint: "В другом месте (уточните и запишите, где именно)",
             answers: [{
                     answer: 'Радиоприемник',
-                    next_question: '9_2'
+                    next_question: '9_3'
                 },
                 {
                     answer: 'Автомагнитола',
-                    next_question: '9_2'
+                    next_question: '9_3'
                 },
                 {
                     answer: 'Мобильный телефон, смартфон (через FM тюнер)',
-                    next_question: '9_2'
+                    next_question: '9_3'
                 },
                 {
                     answer: 'Мобильный телефон, смартфон (через интернет) ',
-                    next_question: '9_2'
+                    next_question: '9_3'
                 },
                 {
                     answer: 'Компьютер, ноутбук, планшет (через интернет)',
-                    next_question: '9_2'
+                    next_question: '9_3'
                 },
             ],
             type: "device_place",
@@ -921,6 +921,32 @@ ready = () => {
         div.appendChild(label);
         return div
     }
+    const create_radio_place = (question, index_answer, answer, name, checked) => {
+        if (!name) {
+            name = `input_radio_${question.number}`
+        }
+        const div = document.createElement('div');
+        div.classList.add('form-check');
+        const input = document.createElement('input');
+        input.setAttribute('name', name);
+        input.classList.add('form-check-input');
+        Object.assign(input, {
+            id: `${name}_${index_answer}`,
+            type: 'radio'
+        });
+        if (checked) {
+            input.checked = "checked";
+        }
+        input.dataset.next_question = `${answer.next_question}`;
+        const label = document.createElement('label');
+        label.classList.add('form-check-label');
+        label.setAttribute('for', `${name}_${index_answer}`);
+        label.textContent = answer.answer;
+
+        div.appendChild(input);
+        div.appendChild(label);
+        return div
+    }
     const create_text_input = (question) => {
         const div = document.createElement('div');
         div.classList.add('mb-3');
@@ -1118,14 +1144,19 @@ ready = () => {
                 while (div_place.firstChild) {
                     div_place.removeChild(div_place.firstChild);
                 };
+                console.log(selectedPlace);
                 selectedPlace.map((place, index_place) => {
+                    const div_place_item = document.createElement('div');
                     const p = document.createElement('p');
                     p.textContent = `${index_place+1}.${place.value}`;
-                    div_place.appendChild(p);
-                    questions[parseInt(question.number) + 2].answers.forEach((answer, index_answer) => {
-                        const radio = create_radio(question, index, answer,`input_radio_${question.number}_${index_place}`);
-                        radio.checked = true;
-                        div_place.appendChild(radio);
+                    div_place_item.appendChild(p);
+                    div_place.appendChild(div_place_item);
+                    const question_next = questions[parseInt(question.number) + 2];
+                    console.log(question_next)
+                    question_next.answers.forEach((answer, index_answer) => {
+                        const name = `input_radio_${question_next.number}_${index_place}`
+                        const radio = create_radio_place(question_next, index_answer, answer, name, false);
+                        div_place_item.appendChild(radio);
                     });
                 })
                 btn_next.setAttribute('href', `#${question.next}`);
@@ -1142,12 +1173,12 @@ ready = () => {
             li.appendChild(div_place);
             li.addEventListener('input', (event) => {
                 console.log(event.target);
+                console.log(event.target.parentElement.parentElement);
                 console.log(event.target.name);
-                console.log(event.target.dataset.next_question);
                 btn_next.setAttribute('href', `#${event.target.dataset.next_question}`);
                 btn_next.classList.remove('disabled');
                 const checkedBoxes = document.querySelectorAll(`input[name=${event.target.name}]:checked`);
-                console.log(checkedBoxes[0].value);
+                console.log(checkedBoxes);
                 console.log(checkedBoxes[0]);
             });
 
