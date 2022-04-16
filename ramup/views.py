@@ -213,7 +213,7 @@ def operator_work(request):
 
     return render(request, 'ramup/operator_work.html',
                   {'title':'Operator work',
-                  'radio_station_by_City': RadioStationsByCitySerializer(RadioStationsByCity.objects.all(), many=True).data,
+                  'radio_station_by_City': RadioStationsByCitySerializer(RadioStationsByCity.objects.prefetch_related("radioStation", "name_city").all(), many=True).data,
                    'quota_by_day_of_now': quota_by_day_of_now(),
                    'number_telephone': get_number_telephone(),
                    'user': CurrentUserSerializer(request.user).data,

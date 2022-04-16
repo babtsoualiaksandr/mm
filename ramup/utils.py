@@ -32,7 +32,7 @@ def quota_by_day_of_now(now_date=''):
         now = datetime.now()
     day_of_week = now.weekday()
     quota_of_days = quota_by_day_of_week()
-    benchmarks = BenchmarkCityGenderAge.objects.all()
+    benchmarks = BenchmarkCityGenderAge.objects.prefetch_related("age", "city").all()
     q = float(quota_of_days[day_of_week][1]/100)
     quota_now = {}
     for benchmark in benchmarks:
